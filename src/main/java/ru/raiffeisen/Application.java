@@ -9,9 +9,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"ru.raiffeisen.controller"})
-@EnableJpaRepositories(basePackages = {"ru.raiffeisen.data"})
-@EntityScan(basePackages = {"ru.raiffeisen.model"})
+@ComponentScan(basePackages = {"ru.raiffeisen.controller", "ru.raiffeisen.model.service"})
+@EnableJpaRepositories(basePackages = {"ru.raiffeisen.data.repo"})
+@EntityScan(basePackages = {"ru.raiffeisen.data.entity"})
 public class Application extends SpringBootServletInitializer {
 
     @Override
