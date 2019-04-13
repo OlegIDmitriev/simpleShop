@@ -15,15 +15,12 @@ public class ItemService {
     private ItemRepository itemRepository;
 
     public Item getItemByStringId(String stringId){
-        long itemId = 0L;
-        try {
-            itemId = Long.parseLong(stringId);
-        } catch (NumberFormatException nfe) {
-            nfe.printStackTrace();
-            return null;
-        }
+        long id = getLongIdFromString(stringId);
 
-        Optional<Item> optionalItem = itemRepository.findById(itemId);
+        if(id == -1)
+            return null;
+
+        Optional<Item> optionalItem = itemRepository.findById(id);
 
         if(optionalItem.isPresent()){
             return optionalItem.get();
@@ -33,14 +30,25 @@ public class ItemService {
     }
 
     public Iterable<Item> findAllByCategoryId(String categoryId){
-        long category = 0L;
-        try {
-            category = Long.parseLong(categoryId);
-        } catch (NumberFormatException nfe) {
-            nfe.printStackTrace();
+        long id = getLongIdFromString(categoryId);
+
+        if(id == -1)
             return null;
+
+        return itemRepository.findAllByCategoryId(id);
+    }
+
+    private long getLongIdFromString(String longString){
+        long id;
+
+        try{
+            id = Long.parseLong(longString);
+        } catch (NumberFormatException nfe){
+            nfe.printStackTrace();
+
+            return -1;
         }
 
-        return itemRepository.findAllByCategoryId(category);
+        return id;
     }
 }

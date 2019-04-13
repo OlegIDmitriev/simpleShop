@@ -6,9 +6,17 @@ var app = new Vue({
 	},
 
 	methods: {
-        getAllItems: function() {
+        removeFromCart: function() {
 
-        }
+        },
+
+        incQuantity: function(itemId) {
+
+        },
+
+        decQuantity: function(itemId) {
+
+        },
     },
 
 	mounted() {
