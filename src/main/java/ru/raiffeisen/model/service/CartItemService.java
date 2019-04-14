@@ -80,7 +80,7 @@ public class CartItemService {
         if(id == -1)
             return;
 
-        Optional<CartItem> optional = cartItemRepository.findByItemId(id);
+        Optional<CartItem> optional = cartItemRepository.findById(id);
         if(optional.isPresent()){
             cartItemRepository.findById(id).get().incQuantity();
         }
@@ -92,7 +92,7 @@ public class CartItemService {
         if(id == -1)
             return;
 
-        Optional<CartItem> optional = cartItemRepository.findByItemId(id);
+        Optional<CartItem> optional = cartItemRepository.findById(id);
         if(optional.isPresent()){
             cartItemRepository.findById(id).get().decQuantity();
         }

@@ -8,26 +8,22 @@
 	</head>
 	<body>
 
-		<div class="header sticky navbar">
-		    <div class="float-left">
-		        <a href="/"><i class="fa fa-fw fa-home"></i> Home</a>
-                <a href="#"><i class="fa fa-fw fa-search"></i> Search</a>
-                <a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a>
-            </div>
-            <div class="float-right" >
-                <a href="#"><i class="fa fa-fw fa-user"></i> Login</a>
-                <a href="/cart" class="cart-font"><i class="fa fa-fw fa-shopping-cart"></i> | 9+</a>
-            </div>
+	    <div id="app">
 
-		</div>
-		<div class="leftcontent">
-            <h2 class="hello-title">${item.name}!</h2>
+		    <header-menu :count="itemInCart"></header-menu>
 
-            <h3>${item.price}</h3>
-            <h3>${item.price}</h3>
+		    <div class="leftcontent">
+                <h2 class="hello-title">${item.name}!</h2>
+
+                <h3>${item.price}</h3>
+                <h3>${item.price}</h3>
+
+            </div>
 
         </div>
 
-        <script src="/js/item.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="/js/main.js"></script>
 </body>
 </html>

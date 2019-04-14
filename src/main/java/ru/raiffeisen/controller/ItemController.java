@@ -2,6 +2,7 @@ package ru.raiffeisen.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.raiffeisen.data.repo.ItemRepository;
@@ -9,6 +10,7 @@ import ru.raiffeisen.data.entity.Item;
 import ru.raiffeisen.model.service.ItemService;
 
 @RestController
+@RequestMapping("/items")
 public class ItemController {
     private ItemRepository itemRepository;
     @Autowired
@@ -18,13 +20,13 @@ public class ItemController {
         this.itemRepository = itemRepository;
     }
 
-    @GetMapping("/items")
+    @GetMapping("/all")
     public Iterable<Item> items() {
-        return itemRepository.findAll();
+        return itemRepository.findAllByOrderByIdAsc();
     }
 
-    @GetMapping({"/itemscat"})
-    public Iterable<Item> itemsByCategory(@RequestParam(value = "category") String category) {
-        return itemService.findAllByCategoryId(category);
+    @GetMapping({"/category"})
+    public Iterable<Item> itemsByCategory(@RequestParam(value = "id") String categoryId) {
+        return itemService.findAllByCategoryId(categoryId);
     }
 }

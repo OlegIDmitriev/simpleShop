@@ -1,12 +1,17 @@
 package ru.raiffeisen.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.raiffeisen.data.entity.CartItem;
 import ru.raiffeisen.data.repo.CartItemRepository;
 import ru.raiffeisen.model.service.CartItemService;
 
+import java.util.Map;
+
 @RestController
+@RequestMapping("/cart")
 public class CartItemController {
     private CartItemRepository cartItemRepository;
     @Autowired
@@ -16,33 +21,48 @@ public class CartItemController {
         this.cartItemRepository = cartItemRepository;
     }
 
-    @GetMapping("/cartitems")
+    @GetMapping("/items")
     public Iterable<CartItem> itemsInCart() {
-        return cartItemRepository.findAll();
+        return cartItemRepository.findAllByOrderByIdAsc();
     }
 
-    @GetMapping("/cartcount")
+    @GetMapping("/count")
     public long itemsCountInCart(){
         return cartItemRepository.count();
     }
 
-    @PutMapping("/additem")
-    public void addItemToCart(@RequestParam(value = "id") String itemId){
+    @PutMapping("/add")
+    public ResponseEntity addItemToCart(@RequestParam(value = "id") String itemId){
         cartItemService.addItemInCart(itemId);
+
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @DeleteMapping("/deleteitem")
-    public void removeItemFromCart(@RequestBody String itemId){
-        cartItemService.removeItemFromCart(itemId);
+    @DeleteMapping("/delete")
+    public ResponseEntity removeItemFromCart(@RequestParam(value = "cartItemId") String cartItemId){
+        cartItemService.removeItemFromCart(cartItemId);
+
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @PostMapping("/inc")
-    public void incQuantity(@RequestBody String cartItemId){
+    public ResponseEntity incQuantity(@RequestBody Map<String, String> json){
+        String cartItemId = json.get("cartItemId");
         cartItemService.incQuantity(cartItemId);
+
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @PostMapping("/dec")
-    public void decQuantity(@RequestBody String cartItemId){
+    public ResponseEntity decQuantity(@RequestBody Map<String, String> json){
+        String cartItemId = json.get("cartItemId");
         cartItemService.decQuantity(cartItemId);
+
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
+
+    @GetMapping("/price")
+    public double getTotalPrice(){
+        return cartItemRepository.getTotalPriceInCart();
     }
 }

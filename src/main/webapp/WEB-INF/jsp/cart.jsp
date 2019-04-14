@@ -9,26 +9,17 @@
 	</head>
 	<body>
 
-		<div class="header sticky navbar">
-		    <div class="float-left">
-		        <a href="/"><i class="fa fa-fw fa-home"></i> Home</a>
-                <a href="#"><i class="fa fa-fw fa-search"></i> Search</a>
-                <a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a>
-            </div>
-            <div class="float-right" >
-                <a href="#"><i class="fa fa-fw fa-user"></i> Login</a>
-                <a href="/cart" class="cart-font"><i class="fa fa-fw fa-shopping-cart"></i> | 9+</a>
-            </div>
+        <div id="app">
 
-		</div>
-        <div id="app" class="leftcontent">
+		<header-menu :count="itemInCart"></header-menu>
+		<div class="leftcontent">
                 <div class="container">
                     <h2 >Your Cart</h2>
                 </div>
                <div class="container">
             
                     <section id="cart"> 
-                        <article v-for="cartItem in cartItems" class="cart-product">
+                        <article v-for="cartItem in cartItems" :key="cartItem.id" class="cart-product">
                             <header>
                                 <a class="remove">
                                     <img :src="cartItem.item.imageUrl" :alt="cartItem.item.name">
@@ -38,15 +29,15 @@
                             <div class="cart-content">
                                 <h1>{{ cartItem.item.name }}</h1>
                                 Some description
-                                <span class="remove-span">X</span>
+                                <span @click="removeFromCart(cartItem.id)" class="remove-span">X</span>
                             </div>
             
                             <footer class="cart-content">
-                                <span class="qt-minus">-</span>
-                                <span class="qt">{{ cartItem.quantity }}</span>
-                                <span class="qt-plus">+</span>
+                                <span @click="decQuantity(cartItem.id)" :class="{'qt-minus': true, 'disabled' : cartItem.quantity <= 1}">-</span>
+                                <span class="qt" >{{ cartItem.quantity }}</span>
+                                <span @click="incQuantity(cartItem.id)" class="qt-plus">+</span>
             
-                                <h2 class="full-price">{{ '$' + cartItem.item.price*cartItem.quantity }}</h2>
+                                <h2 class="full-price">{{ '$' + getMultiple(cartItem.item.price, cartItem.quantity) }}</h2>
                                 <h2 class="price">{{ '$' + cartItem.item.price }}</h2>
                             </footer>
                         </article>
@@ -69,6 +60,7 @@
 
                     </div>
             </footer>
+        </div>
         </div>
 
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>

@@ -35,7 +35,7 @@ public class ItemService {
         if(id == -1)
             return null;
 
-        return itemRepository.findAllByCategoryId(id);
+        return itemRepository.findAllByCategoryIdOrderByIdAsc(id);
     }
 
     private long getLongIdFromString(String longString){

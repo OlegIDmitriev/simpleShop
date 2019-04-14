@@ -6,4 +6,5 @@ import ru.raiffeisen.data.entity.Category;
 
 @Repository
 public interface CategoryRepository extends CrudRepository<Category, Long > {
+    Iterable<Category> findAllByOrderByIdAsc();
 }
