@@ -39,5 +39,10 @@ public class MainController {
     public String cart(Model model) {
         return "cart";
     }
+
+    @GetMapping({"/info"})
+    public String info(Model model) {
+        return "info";
+    }
 }
 

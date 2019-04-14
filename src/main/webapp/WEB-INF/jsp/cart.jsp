@@ -21,7 +21,7 @@
                     <section id="cart"> 
                         <article v-for="cartItem in cartItems" :key="cartItem.id" class="cart-product">
                             <header>
-                                <a class="remove">
+                                <a class="item-card" :href="'/item?id=' + cartItem.item.id">
                                     <img :src="cartItem.item.imageUrl" :alt="cartItem.item.name">
                                 </a>
                             </header>
@@ -33,7 +33,7 @@
                             </div>
             
                             <footer class="cart-content">
-                                <span @click="decQuantity(cartItem.id)" :class="{'qt-minus': true, 'disabled' : cartItem.quantity <= 1}">-</span>
+                                <span @click="decQuantity(cartItem.id, cartItem.quantity)" class="qt-minus">-</span>
                                 <span class="qt" >{{ cartItem.quantity }}</span>
                                 <span @click="incQuantity(cartItem.id)" class="qt-plus">+</span>
             
@@ -48,13 +48,13 @@
                     <div class="container clearfix">
 
                         <div class="left">
-                            <h2 class="subtotal">Subtotal: <span>163.96</span>$</h2>
-                            <h3 class="tax">Taxes (5%): <span>8.2</span>$</h3>
-                            <h3 class="shipping">Shipping: <span>5.00</span>$</h3>
+                            <h2 class="subtotal">Subtotal: <span>0</span>$</h2>
+                            <h3 class="tax">Taxes (5%): <span>0</span>$</h3>
+                            <h3 class="shipping">Shipping: <span>0</span>$</h3>
                         </div>
 
                         <div class="right">
-                            <h1 class="total">Total: <span>177.16</span>$</h1>
+                            <h1 class="total">Total: <span>{{ totalPrice }}</span>$</h1>
                             <a class="btn">Checkout</a>
                         </div>
 

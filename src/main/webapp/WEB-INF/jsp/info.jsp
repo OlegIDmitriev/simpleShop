@@ -12,7 +12,8 @@
 		<header-menu :count="itemInCart"></header-menu>
 
         <div class="leftcontent">
-            <h2>Page not found :(</h2>
+            <h2>Hi, everyone!</h2>
+            <p>This is not real fruit shop. Just my little project :)</p>
         </div>
 
     </div>
@@ -20,5 +21,6 @@
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <script src="/js/main.js"></script>
+
     </body>
 </html>

@@ -5,7 +5,7 @@ Vue.component('header-menu', {
     	<div class="float-left">
     		        <a href="/"><i class="fa fa-fw fa-home"></i> Home</a>
                     <a href="#"><i class="fa fa-fw fa-search"></i> Search</a>
-                    <a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a>
+                    <a href="/info"><i class="fa fa-fw fa-envelope"></i> Contact</a>
          </div>
          <div class="float-right" >
           <a href="#"><i class="fa fa-fw fa-user"></i> Login</a>
@@ -20,7 +20,8 @@ var app = new Vue({
 	data: {
 		cartItems: [],
 		errors: [],
-		itemInCart: 0
+		itemInCart: 0,
+		totalPrice: 0
 	},
 
 	methods: {
@@ -28,7 +29,8 @@ var app = new Vue({
             axios.delete('http://localhost:8080/cart/delete?cartItemId=' + cartItemId)
             .then(response => (
                 this.getCartItems(),
-                this.getItemCountInCart()
+                this.getItemCountInCart(),
+                this.getTotalPrice()
             ))
             .catch(e => (this.errors.push(e)))
         },
@@ -38,17 +40,23 @@ var app = new Vue({
                 cartItemId: cartItemId
             })
             .then(response => (
-                this.getCartItems()
+                this.getCartItems(),
+                this.getTotalPrice()
             ))
             .catch(e => (this.errors.push(e)))
         },
 
-        decQuantity: function(cartItemId) {
+        decQuantity: function(cartItemId, currentQuantity) {
+            if(currentQuantity <=1){
+                return;
+            }
+
             axios.post('http://localhost:8080/cart/dec', {
                 cartItemId: cartItemId
             })
             .then(response => (
-                this.getCartItems()
+                this.getCartItems(),
+                this.getTotalPrice()
             ))
             .catch(e => (this.errors.push(e)))
         },
@@ -66,6 +74,12 @@ var app = new Vue({
            .catch(e => (this.errors.push(e)))
         },
 
+        getTotalPrice: function(){
+           axios.get('http://localhost:8080/cart/price')
+           .then(response => (this.totalPrice = response.data))
+           .catch(e => (this.errors.push(e)))
+        },
+
         getMultiple: function(var1, var2) {
             var multiple = var1 * var2;
 
@@ -77,5 +91,7 @@ var app = new Vue({
 	    this.getItemCountInCart();
 
         this.getCartItems();
+
+        this.getTotalPrice();
     }
 })

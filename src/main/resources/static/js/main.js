@@ -5,7 +5,7 @@ Vue.component('header-menu', {
     	<div class="float-left">
     		        <a href="/"><i class="fa fa-fw fa-home"></i> Home</a>
                     <a href="#"><i class="fa fa-fw fa-search"></i> Search</a>
-                    <a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a>
+                    <a href="/info"><i class="fa fa-fw fa-envelope"></i> Contact</a>
          </div>
          <div class="float-right" >
           <a href="#"><i class="fa fa-fw fa-user"></i> Login</a>

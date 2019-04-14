@@ -59,7 +59,7 @@ a:hover {
 
 .cart-product {
     border: 1px solid #eee;
-    margin: 20px 0;
+    margin: 15px 0;
     width: 100%;
     height: 155px;
     position: relative;
@@ -85,12 +85,12 @@ a:hover {
 
 .cart-product header {
     background: #000;
-    margin: 0 1% 20px 0;
+    margin: 0 1% 0 0;
     overflow: hidden;
     padding: 0;
     position: relative;
-    width: 150px;
-    height: 150px;
+    width: 156px;
+    height: 156px;
 }
 
 .cart-product header:hover img {
@@ -121,7 +121,7 @@ a:hover {
     transition: bottom .2s linear;
 }
 
-.remove {
+.item-card {
     cursor: pointer;
 }
 
@@ -289,8 +289,4 @@ minused {
 
 .added {
     margin: 0 -50px 0 0 !important;
-}
-
-span .disabled {
-    pointer-events: none;
 }
